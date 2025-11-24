@@ -4,6 +4,10 @@ pipeline {
     environment {
         REGISTRY = "claudiocabrera/notas-entregable4"
         IMAGE_TAG = "latest"
+
+        
+        DOCKER_USERNAME = credentials('dockerhub').username
+        DOCKER_PASSWORD = credentials('dockerhub').password
     }
 
     stages {
