@@ -32,10 +32,12 @@ pipeline {
 
         stage('Escaneo de vulnerabilidades con Snyk') {
             steps {
-                echo 'Instalando dependencias del proyecto para Snyk...'
+                echo 'Instalando dependencias del proyecto para Snyk usando un virtualenv...'
                 sh '''
-                pip3 install -r requirements.txt
-                '''
+                python3 -m venv venv
+                . venv/bin/activate
+                pip install --upgrade pip
+                pip install -r requirements.txt
 
                 echo 'Ejecutando Snyk...'
                 sh '''
