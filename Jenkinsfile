@@ -32,6 +32,11 @@ pipeline {
 
         stage('Escaneo de vulnerabilidades con Snyk') {
             steps {
+                echo 'Instalando dependencias del proyecto para Snyk...'
+                sh '''
+                pip3 install -r requirements.txt
+                '''
+
                 echo 'Ejecutando Snyk...'
                 sh '''
                 snyk test --file=requirements.txt --severity-threshold=high
