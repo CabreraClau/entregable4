@@ -4,75 +4,90 @@ pipeline {
     environment {
         REGISTRY = "claudiocabrera/notas-entregable4"
         IMAGE_TAG = "latest"
-        DOCKER_CREDS = credentials('dockerhub')
     }
 
     stages {
 
-        stage('Clonación del repositorio') {
+        stage('Clonar repositorio') {
             steps {
                 checkout scm
-                echo 'Repositorio clonado correctamente.'
             }
         }
 
-        stage('Análisis estático con Semgrep') {
-            steps {
-                echo 'Ejecutando Semgrep...'
-                sh '''
-                semgrep --config auto --json --output semgrep-report.json notas-app/ || true
-                '''
-            }
-            post {
-                failure {
-                    error("❌ Semgrep falló. Deteniendo pipeline.")
+        stage('Semgrep analysis') {
+            agent {
+                docker {
+                    image 'returntocorp/semgrep'
                 }
             }
-        }
-
-        stage('Escaneo de vulnerabilidades con Snyk') {
             steps {
-                echo 'Instalando dependencias del proyecto para Snyk usando un virtualenv...'
                 sh '''
-                python3 -m venv venv
-                . venv/bin/activate
-                pip install --upgrade pip
-                pip install -r requirements.txt
-
-                echo 'Ejecutando Snyk...'
-                sh '''
-                snyk test --file=requirements.txt --severity-threshold=high
+                    semgrep --config auto --json --output semgrep-report.json || true
                 '''
             }
         }
 
-        stage('Construcción y test de la aplicación') {
+        stage('Snyk scan') {
+            agent {
+                docker {
+                    image 'snyk/snyk-cli'
+                }
+            }
+            environment {
+                SNYK_TOKEN = credentials('snyk-token')
+            }
             steps {
-                echo 'Validando Python app...'
                 sh '''
-                python3 -m py_compile notas-app/app.py
+                    snyk auth $SNYK_TOKEN
+                    snyk test --file=requirements.txt --package-manager=pip --severity-threshold=high
                 '''
             }
         }
 
-        stage('Build y Push de Docker Image') {
+        stage('Build & Test Python') {
+            agent {
+                docker {
+                    image 'python:3.10'
+                }
+            }
             steps {
-                echo 'Construyendo imagen Docker...'
                 sh '''
-                docker build -t $REGISTRY:$IMAGE_TAG .
-                docker login -u "$DOCKER_CREDS_USR" -p "$DOCKER_CREDS_PSW"
-                docker push $REGISTRY:$IMAGE_TAG
+                    python -m py_compile app.py
                 '''
             }
         }
 
-        stage('Despliegue en Kubernetes con Helm') {
+        stage('Build & Push Docker image') {
+            agent {
+                docker {
+                    image 'docker:24.0'
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
+            environment {
+                DOCKERHUB = credentials('dockerhub')
+            }
             steps {
-                echo 'Desplegando en Kubernetes...'
                 sh '''
-                helm upgrade --install notas entregable4-chart \
-                --set image.repository=$REGISTRY \
-                --set image.tag=$IMAGE_TAG
+                    docker build -t $REGISTRY:$IMAGE_TAG .
+                    echo "$DOCKERHUB_PSW" | docker login -u "$DOCKERHUB_USR" --password-stdin
+                    docker push $REGISTRY:$IMAGE_TAG
+                '''
+            }
+        }
+
+        stage('Deploy with Helm') {
+            agent {
+                docker {
+                    image 'alpine/helm:3.13.0'
+                    args '-v /root/.kube:/root/.kube'
+                }
+            }
+            steps {
+                sh '''
+                    helm upgrade --install notas entregable4-chart \
+                        --set image.repository=$REGISTRY \
+                        --set image.tag=$IMAGE_TAG
                 '''
             }
         }
@@ -84,7 +99,7 @@ pipeline {
             echo "✔ Pipeline finalizado con éxito."
         }
         failure {
-            echo "❌ Hubo un error en el pipeline."
+            echo "❌ Pipeline falló."
         }
     }
 }
