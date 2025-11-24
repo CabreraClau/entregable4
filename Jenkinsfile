@@ -2,56 +2,57 @@ pipeline {
     agent any
 
     environment {
-        REGISTRY = "claudiocabrera/notas-entregable4"   // tu imagen dockerhub
+        REGISTRY = "claudiocabrera/notas-entregable4"
         IMAGE_TAG = "latest"
     }
 
     stages {
 
-        stage('Clonar repositorio') {
+        stage('Clonación del repositorio') {
             steps {
                 checkout scm
+                echo 'Repositorio clonado correctamente.'
             }
         }
 
         stage('Análisis estático con Semgrep') {
             steps {
+                echo 'Ejecutando Semgrep...'
                 sh '''
-                echo "--- Ejecutando Semgrep ---"
                 semgrep --config auto --json --output semgrep-report.json notas-app/ || true
                 '''
             }
             post {
-                unsuccessful {
-                    echo "❌ Semgrep detectó hallazgos. Revisa semgrep-report.json."
+                failure {
+                    error("❌ Semgrep falló. Deteniendo pipeline.")
                 }
             }
         }
 
-        stage('Escaneo de dependencias con Snyk') {
+        stage('Escaneo de vulnerabilidades con Snyk') {
             steps {
+                echo 'Ejecutando Snyk...'
                 sh '''
-                echo "--- Escaneando dependencias con Snyk ---"
                 snyk test --file=requirements.txt --severity-threshold=high
                 '''
             }
         }
 
-        stage('Build de la aplicación y tests') {
+        stage('Construcción y test de la aplicación') {
             steps {
+                echo 'Validando Python app...'
                 sh '''
-                echo "No tenés tests, así que solo validamos que Flask arranca."
                 python3 -m py_compile notas-app/app.py
                 '''
             }
         }
 
-        stage('Build de imagen Docker') {
+        stage('Build y Push de Docker Image') {
             steps {
+                echo 'Construyendo imagen Docker...'
                 sh '''
-                echo "--- Construyendo imagen Docker ---"
                 docker build -t $REGISTRY:$IMAGE_TAG .
-                docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+                docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
                 docker push $REGISTRY:$IMAGE_TAG
                 '''
             }
@@ -59,19 +60,20 @@ pipeline {
 
         stage('Despliegue en Kubernetes con Helm') {
             steps {
+                echo 'Desplegando en Kubernetes...'
                 sh '''
-                echo "--- Desplegando en Kubernetes con Helm ---"
                 helm upgrade --install notas entregable4-chart \
-                    --set image.repository=$REGISTRY \
-                    --set image.tag=$IMAGE_TAG
+                --set image.repository=$REGISTRY \
+                --set image.tag=$IMAGE_TAG
                 '''
             }
         }
+
     }
 
     post {
         success {
-            echo "✔ Pipeline completado correctamente."
+            echo "✔ Pipeline finalizado con éxito."
         }
         failure {
             echo "❌ Hubo un error en el pipeline."
