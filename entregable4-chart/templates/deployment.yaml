@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "entregable4-chart.fullname" . }}
+  labels:
+    app: {{ include "entregable4-chart.name" . }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ include "entregable4-chart.name" . }}
+  template:
+    metadata:
+      labels:
+        app: {{ include "entregable4-chart.name" . }}
+    spec:
+      containers:
+        - name: {{ include "entregable4-chart.name" . }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - containerPort: {{ .Values.app.port }}
+
+          env:
+            - name: APP_ENV
+              valueFrom:
+                configMapKeyRef:
+                  name: {{ include "entregable4-chart.fullname" . }}-config
+                  key: APP_ENV
+
+          volumeMounts:
+            - name: notas-volume
+              mountPath: {{ .Values.persistence.mountPath }}
+
+      volumes:
+        - name: notas-volume
+          persistentVolumeClaim:
+            claimName: {{ include "entregable4-chart.fullname" . }}-pvc
