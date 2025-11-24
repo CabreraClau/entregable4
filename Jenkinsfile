@@ -4,10 +4,7 @@ pipeline {
     environment {
         REGISTRY = "claudiocabrera/notas-entregable4"
         IMAGE_TAG = "latest"
-
-        
-        DOCKER_USERNAME = credentials('dockerhub').username
-        DOCKER_PASSWORD = credentials('dockerhub').password
+        DOCKER_CREDS = credentials('dockerhub')
     }
 
     stages {
@@ -56,7 +53,7 @@ pipeline {
                 echo 'Construyendo imagen Docker...'
                 sh '''
                 docker build -t $REGISTRY:$IMAGE_TAG .
-                docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+                docker login -u "$DOCKER_CREDS_USR" -p "$DOCKER_CREDS_PSW"
                 docker push $REGISTRY:$IMAGE_TAG
                 '''
             }
