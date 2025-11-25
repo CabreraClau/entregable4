@@ -3,12 +3,13 @@ kind: Service
 metadata:
   name: {{ include "entregable4-chart.fullname" . }}
   labels:
-    app: {{ include "entregable4-chart.name" . }}   # 🔥 NECESARIO para ServiceMonitor
+    app: {{ include "entregable4-chart.name" . }}   # MUY IMPORTANTE
+    release: monitoring                             # para Prometheus Operator
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - name: http                                    # 🔥 NECESARIO para ServiceMonitor
+    - name: http                                     # DEBE llamarse igual que en el ServiceMonitor
       port: {{ .Values.service.port }}
       targetPort: {{ .Values.app.port }}
   selector:
-    app: {{ include "entregable4-chart.name" . }}
+    app: {{ include "entregable4-chart.name" . }}    # tiene que coincidir EXACTO

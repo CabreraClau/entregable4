@@ -3,7 +3,7 @@ kind: ServiceMonitor
 metadata:
   name: notas-servicemonitor
   labels:
-    release: prometheus
+    release: monitoring
 spec:
   selector:
     matchLabels:
