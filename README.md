@@ -283,7 +283,97 @@ Importar dashboard en Grafana
 Ruta del archivo exportado:
 /grafana/dashboard.json
 
+5. Seguridad Integrada (DevSecOps)
+5.1 Análisis estático de código con Semgrep
 
+- Se ejecutó Semgrep sobre el archivo app.py con las siguientes reglas personalizadas:
+
+- Detección del uso de open() sin validación de ruta.
+
+- Uso de os.getenv() sin sanitización o validación.
+
+Comando utilizado (para cmd, en powershell no):
+```bash
+chcp 65001 
+```
+
+```bash
+semgrep --config=semgrep-rules.yml app.py > reports\semgrep-report.txt
+```
+
+Archivo generado:
+- reports/semgrep-report.txt
+
+Justificación:
+- Las rutas utilizadas con open() son locales (/data/notas.txt) y no se reciben desde el usuario, por lo que se consideran seguras. Las variables de entorno son leídas para configuración (APP_ENV, APP_PORT), y sus valores no alteran el flujo lógico del sistema.
+
+5.2 Escaneo de dependencias con Snyk
+
+- Se utilizó Snyk para escanear el archivo requirements.txt.
+
+Comando utilizado:
+```bash
+snyk test --file=requirements.txt --package-manager=pip --severity-threshold=high --json > reports\snyk-report.txt
+```
+
+Archivo generado:
+- reports/snyk-report.txt
+
+Observaciones:
+- Inicialmente se reportó un error de paquete faltante (prometheus-client). Luego de instalar las dependencias con pip install -r requirements.txt, el escaneo se ejecutó exitosamente. No se encontraron vulnerabilidades críticas. Se propone mantener versiones específicas en requirements.txt para evitar upgrades automáticos inseguros.
+
+5.3 Políticas de seguridad en Kubernetes con Kyverno
+
+Se implementaron las siguientes políticas en la carpeta kyverno-policies/:
+
+- disallow-latest-tag.yaml: Prohíbe imágenes con etiqueta latest.
+
+- cpu-mem-limits.yaml: Obliga a declarar limits de CPU y memoria.
+
+- no-root-user.yaml: Requiere ejecutar como usuario no root.
+
+- require-app-label.yaml: Obliga a definir la etiqueta app.
+
+Aplicación de políticas:
+```bash
+kubectl apply -f kyverno-policies/ --recursive
+```
+
+
+Validación:
+Se intentó crear un pod test-pod-latest.yaml que violaba intencionalmente todas las políticas. La solicitud fue rechazada correctamente.
+
+Comando para guardar evidencia:
+```bash
+kubectl apply -f kyverno-policies/test-pod-latest.yaml > reports\kyverno-validation.log 2>&1
+```
+
+Archivo generado:
+- reports/kyverno-validation.log
+
+5.4 Monitoreo de seguridad en tiempo de ejecución con Falco
+
+Falco fue instalado mediante Helm:
+```bash
+helm install falco falcosecurity/falco
+```
+
+Evento simulado:
+Se ejecutó un contenedor de Alpine intentando acceder a /etc/shadow, una acción considerada sospechosa:
+```bash
+docker run --rm alpine cat /etc/shadow > NUL
+```
+
+Log del evento capturado:
+```bash
+kubectl logs -l app.kubernetes.io/name=falco > reports/falco-event.log
+```
+
+Archivo generado:
+- reports/falco-event.log
+
+Descripción del evento:
+Falco detectó correctamente el acceso no autorizado a /etc/shadow desde un contenedor. Esta acción simulada representa una práctica común de reconocimiento o acceso no autorizado, y fue bloqueada de acuerdo con las políticas de runtime security.
 . Comandos útiles
 
 Ver logs de la app:
