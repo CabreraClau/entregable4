@@ -1,0 +1,14 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: notas-servicemonitor
+  labels:
+    release: prometheus
+spec:
+  selector:
+    matchLabels:
+      app: entregable4-chart
+  endpoints:
+    - port: http        # nombre del port en service.yaml
+      path: /metrics
+      interval: 10s

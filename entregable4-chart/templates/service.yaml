@@ -2,10 +2,13 @@ apiVersion: v1
 kind: Service
 metadata:
   name: {{ include "entregable4-chart.fullname" . }}
+  labels:
+    app: {{ include "entregable4-chart.name" . }}   # 🔥 NECESARIO para ServiceMonitor
 spec:
   type: {{ .Values.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - name: http                                    # 🔥 NECESARIO para ServiceMonitor
+      port: {{ .Values.service.port }}
       targetPort: {{ .Values.app.port }}
   selector:
     app: {{ include "entregable4-chart.name" . }}
