@@ -1,0 +1,17 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: require-app-label
+spec:
+  validationFailureAction: enforce
+  rules:
+    - name: check-labels
+      match:
+        resources:
+          kinds: ["Pod"]
+      validate:
+        message: "Cada pod debe tener una etiqueta 'app'."
+        pattern:
+          metadata:
+            labels:
+              app: "?*"

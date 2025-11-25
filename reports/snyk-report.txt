@@ -1,0 +1,699 @@
+{
+  "vulnerabilities": [
+    {
+      "id": "SNYK-PYTHON-FLASKCORS-7707876",
+      "title": "Improper Access Control",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N/E:P",
+      "credit": [
+        "tomorrowisnew_"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[4.0.0,5.0.0)"
+        ]
+      },
+      "exploit": "Proof of Concept",
+      "fixedIn": [
+        "5.0.0"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "python",
+      "severity": "high",
+      "cvssScore": 7.1,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "flask-cors",
+      "references": [
+        {
+          "url": "https://github.com/corydolphin/flask-cors/blob/f25c6b2ed243457a64567a8fe40e5df6da0cb3dc/CHANGELOG.md?plain=1%23L18",
+          "title": "GitHub ChangeLog"
+        },
+        {
+          "url": "https://github.com/corydolphin/flask-cors/commit/c8514760cf03fcce16d77f6db7007aad429c4548",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/chelo-kjml/flask-cors/blob/24070be57ca1fc8a80c35e5f1711796ba70c282c/flask_cors/core.py%23L193",
+          "title": "Vulnerable Code"
+        },
+        {
+          "url": "https://github.com/chelo-kjml/flask-cors/commit/24070be57ca1fc8a80c35e5f1711796ba70c282c",
+          "title": "Vulnerable Commit"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "NVD",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2024-08-21T01:12:19.334003Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:P",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 7.1,
+          "cvssVersion": "4.0",
+          "modificationTime": "2024-11-14T08:19:59.486267Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N/E:P",
+          "assigner": "Snyk",
+          "severity": "medium",
+          "baseScore": 6.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-11-14T08:19:59.486267Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "assigner": "NVD",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2024-08-21T01:12:19.334003Z"
+        }
+      ],
+      "description": "## Overview\n[Flask-Cors](https://www.pypi.org/project/Flask-Cors) is an A Flask extension adding a decorator for CORS support\n\nAffected versions of this package are vulnerable to Improper Access Control due to the default configuration of the `Access-Control-Allow-Private-Network` CORS header. An attacker can expose private network resources to unauthorized external access by leveraging this default setting.\n## Remediation\nUpgrade `Flask-Cors` to version 5.0.0 or higher.\n## References\n- [GitHub ChangeLog](https://github.com/corydolphin/flask-cors/blob/f25c6b2ed243457a64567a8fe40e5df6da0cb3dc/CHANGELOG.md?plain=1#L18)\n- [GitHub Commit](https://github.com/corydolphin/flask-cors/commit/c8514760cf03fcce16d77f6db7007aad429c4548)\n- [Vulnerable Code](https://github.com/chelo-kjml/flask-cors/blob/24070be57ca1fc8a80c35e5f1711796ba70c282c/flask_cors/core.py#L193)\n- [Vulnerable Commit](https://github.com/chelo-kjml/flask-cors/commit/24070be57ca1fc8a80c35e5f1711796ba70c282c)\n",
+      "epssDetails": {
+        "percentile": "0.58002",
+        "probability": "0.00368",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2024-6221"
+        ],
+        "CWE": [
+          "CWE-284"
+        ],
+        "GHSA": [
+          "GHSA-hxwh-jpp2-84pm"
+        ]
+      },
+      "packageName": "flask-cors",
+      "proprietary": false,
+      "creationTime": "2024-08-19T11:57:17.863105Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2024-08-18T19:43:08Z",
+      "exploitDetails": {
+        "sources": [
+          "Snyk"
+        ],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Proof of Concept",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Proof of Concept",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "pip",
+      "publicationTime": "2024-08-19T11:57:18.083290Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2024-11-14T08:19:59.486267Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "high",
+      "from": [
+        "entregable4@0.0.0",
+        "flask-cors@4.0.0"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "flask-cors",
+      "version": "4.0.0"
+    },
+    {
+      "id": "SNYK-PYTHON-FLASKCORS-9668954",
+      "title": "Improper Handling of Case Sensitivity",
+      "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N/E:P",
+      "credit": [
+        "tomorrowisnew_"
+      ],
+      "semver": {
+        "vulnerable": [
+          "[,6.0.0)"
+        ]
+      },
+      "exploit": "Proof of Concept",
+      "fixedIn": [
+        "6.0.0"
+      ],
+      "patches": [],
+      "insights": {
+        "triageAdvice": null
+      },
+      "language": "python",
+      "severity": "high",
+      "cvssScore": 8.7,
+      "functions": [],
+      "malicious": false,
+      "isDisputed": false,
+      "moduleName": "flask-cors",
+      "references": [
+        {
+          "url": "https://github.com/corydolphin/flask-cors/commit/eb39516a3c96b90d0ae5f51293972395ec3ef358",
+          "title": "GitHub Commit"
+        },
+        {
+          "url": "https://github.com/corydolphin/flask-cors/pull/390",
+          "title": "GitHub PR"
+        },
+        {
+          "url": "https://github.com/corydolphin/flask-cors/releases/tag/6.0.0",
+          "title": "GitHub Release"
+        },
+        {
+          "url": "https://huntr.com/bounties/808c11af-faee-43a8-824b-b5ab4f62b9e6",
+          "title": "Vulnerability Report"
+        },
+        {
+          "url": "https://github.com/corydolphin/flask-cors/blob/5.0.1/flask_cors/extension.py%23L193",
+          "title": "Vulnerable Code"
+        }
+      ],
+      "cvssDetails": [
+        {
+          "assigner": "NVD",
+          "severity": "high",
+          "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "cvssV3BaseScore": 7.5,
+          "modificationTime": "2025-08-01T13:13:16.580172Z"
+        }
+      ],
+      "cvssSources": [
+        {
+          "type": "primary",
+          "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:P",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 8.7,
+          "cvssVersion": "4.0",
+          "modificationTime": "2025-08-01T14:54:17.481049Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N/E:P",
+          "assigner": "Snyk",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-01T14:54:17.481049Z"
+        },
+        {
+          "type": "secondary",
+          "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+          "assigner": "NVD",
+          "severity": "high",
+          "baseScore": 7.5,
+          "cvssVersion": "3.1",
+          "modificationTime": "2025-08-01T13:13:16.580172Z"
+        }
+      ],
+      "description": "## Overview\n[Flask-Cors](https://www.pypi.org/project/Flask-Cors) is an A Flask extension adding a decorator for CORS support\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity in the `try_match()` function. An attacker can access restricted paths and potentially expose sensitive data by exploiting the case insensitivity in path matching.\n## Remediation\nUpgrade `Flask-Cors` to version 6.0.0 or higher.\n## References\n- [GitHub Commit](https://github.com/corydolphin/flask-cors/commit/eb39516a3c96b90d0ae5f51293972395ec3ef358)\n- [GitHub PR](https://github.com/corydolphin/flask-cors/pull/390)\n- [GitHub Release](https://github.com/corydolphin/flask-cors/releases/tag/6.0.0)\n- [Vulnerability Report](https://huntr.com/bounties/808c11af-faee-43a8-824b-b5ab4f62b9e6)\n- [Vulnerable Code](https://github.com/corydolphin/flask-cors/blob/5.0.1/flask_cors/extension.py#L193)\n",
+      "epssDetails": {
+        "percentile": "0.26446",
+        "probability": "0.00092",
+        "modelVersion": "v2025.03.14"
+      },
+      "identifiers": {
+        "CVE": [
+          "CVE-2024-6866"
+        ],
+        "CWE": [
+          "CWE-178"
+        ],
+        "GHSA": [
+          "GHSA-43qf-4rqw-9q2g"
+        ]
+      },
+      "packageName": "flask-cors",
+      "proprietary": false,
+      "creationTime": "2025-04-07T19:06:38.649842Z",
+      "functions_new": [],
+      "alternativeIds": [],
+      "disclosureTime": "2025-03-20T12:32:45Z",
+      "exploitDetails": {
+        "sources": [
+          "Snyk"
+        ],
+        "maturityLevels": [
+          {
+            "type": "secondary",
+            "level": "Proof of Concept",
+            "format": "CVSSv3"
+          },
+          {
+            "type": "primary",
+            "level": "Proof of Concept",
+            "format": "CVSSv4"
+          }
+        ]
+      },
+      "packageManager": "pip",
+      "publicationTime": "2025-04-07T19:06:38.884389Z",
+      "severityBasedOn": "CVSS",
+      "modificationTime": "2025-08-01T14:54:17.481049Z",
+      "socialTrendAlert": false,
+      "severityWithCritical": "high",
+      "from": [
+        "entregable4@0.0.0",
+        "flask-cors@4.0.0"
+      ],
+      "upgradePath": [],
+      "isUpgradable": false,
+      "isPatchable": false,
+      "name": "flask-cors",
+      "version": "4.0.0"
+    }
+  ],
+  "ok": false,
+  "dependencyCount": 10,
+  "org": "jimagrini",
+  "policy": "# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.\nversion: v1.25.1\nignore: {}\npatch: {}\n",
+  "isPrivate": true,
+  "licensesPolicy": {
+    "severities": {},
+    "orgLicenseRules": {
+      "AGPL-1.0": {
+        "licenseType": "AGPL-1.0",
+        "severity": "high",
+        "instructions": ""
+      },
+      "AGPL-3.0": {
+        "licenseType": "AGPL-3.0",
+        "severity": "high",
+        "instructions": ""
+      },
+      "Artistic-1.0": {
+        "licenseType": "Artistic-1.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "Artistic-2.0": {
+        "licenseType": "Artistic-2.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "CDDL-1.0": {
+        "licenseType": "CDDL-1.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "CPOL-1.02": {
+        "licenseType": "CPOL-1.02",
+        "severity": "high",
+        "instructions": ""
+      },
+      "EPL-1.0": {
+        "licenseType": "EPL-1.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "GPL-2.0": {
+        "licenseType": "GPL-2.0",
+        "severity": "high",
+        "instructions": ""
+      },
+      "GPL-3.0": {
+        "licenseType": "GPL-3.0",
+        "severity": "high",
+        "instructions": ""
+      },
+      "LGPL-2.0": {
+        "licenseType": "LGPL-2.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "LGPL-2.1": {
+        "licenseType": "LGPL-2.1",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "LGPL-3.0": {
+        "licenseType": "LGPL-3.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "MPL-1.1": {
+        "licenseType": "MPL-1.1",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "MPL-2.0": {
+        "licenseType": "MPL-2.0",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "MS-RL": {
+        "licenseType": "MS-RL",
+        "severity": "medium",
+        "instructions": ""
+      },
+      "SimPL-2.0": {
+        "licenseType": "SimPL-2.0",
+        "severity": "high",
+        "instructions": ""
+      }
+    }
+  },
+  "packageManager": "pip",
+  "ignoreSettings": {
+    "adminOnly": false,
+    "reasonRequired": false,
+    "disregardFilesystemIgnores": false
+  },
+  "summary": "2 high or critical severity vulnerable dependency paths",
+  "severityThreshold": "high",
+  "remediation": {
+    "unresolved": [
+      {
+        "id": "SNYK-PYTHON-FLASKCORS-7707876",
+        "title": "Improper Access Control",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N/E:P",
+        "credit": [
+          "tomorrowisnew_"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[4.0.0,5.0.0)"
+          ]
+        },
+        "exploit": "Proof of Concept",
+        "fixedIn": [
+          "5.0.0"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "python",
+        "severity": "high",
+        "cvssScore": 7.1,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "flask-cors",
+        "references": [
+          {
+            "url": "https://github.com/corydolphin/flask-cors/blob/f25c6b2ed243457a64567a8fe40e5df6da0cb3dc/CHANGELOG.md?plain=1%23L18",
+            "title": "GitHub ChangeLog"
+          },
+          {
+            "url": "https://github.com/corydolphin/flask-cors/commit/c8514760cf03fcce16d77f6db7007aad429c4548",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/chelo-kjml/flask-cors/blob/24070be57ca1fc8a80c35e5f1711796ba70c282c/flask_cors/core.py%23L193",
+            "title": "Vulnerable Code"
+          },
+          {
+            "url": "https://github.com/chelo-kjml/flask-cors/commit/24070be57ca1fc8a80c35e5f1711796ba70c282c",
+            "title": "Vulnerable Commit"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2024-08-21T01:12:19.334003Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:P/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:P",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.1,
+            "cvssVersion": "4.0",
+            "modificationTime": "2024-11-14T08:19:59.486267Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:R/S:U/C:H/I:N/A:N/E:P",
+            "assigner": "Snyk",
+            "severity": "medium",
+            "baseScore": 6.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-11-14T08:19:59.486267Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2024-08-21T01:12:19.334003Z"
+          }
+        ],
+        "description": "## Overview\n[Flask-Cors](https://www.pypi.org/project/Flask-Cors) is an A Flask extension adding a decorator for CORS support\n\nAffected versions of this package are vulnerable to Improper Access Control due to the default configuration of the `Access-Control-Allow-Private-Network` CORS header. An attacker can expose private network resources to unauthorized external access by leveraging this default setting.\n## Remediation\nUpgrade `Flask-Cors` to version 5.0.0 or higher.\n## References\n- [GitHub ChangeLog](https://github.com/corydolphin/flask-cors/blob/f25c6b2ed243457a64567a8fe40e5df6da0cb3dc/CHANGELOG.md?plain=1#L18)\n- [GitHub Commit](https://github.com/corydolphin/flask-cors/commit/c8514760cf03fcce16d77f6db7007aad429c4548)\n- [Vulnerable Code](https://github.com/chelo-kjml/flask-cors/blob/24070be57ca1fc8a80c35e5f1711796ba70c282c/flask_cors/core.py#L193)\n- [Vulnerable Commit](https://github.com/chelo-kjml/flask-cors/commit/24070be57ca1fc8a80c35e5f1711796ba70c282c)\n",
+        "epssDetails": {
+          "percentile": "0.58002",
+          "probability": "0.00368",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-6221"
+          ],
+          "CWE": [
+            "CWE-284"
+          ],
+          "GHSA": [
+            "GHSA-hxwh-jpp2-84pm"
+          ]
+        },
+        "packageName": "flask-cors",
+        "proprietary": false,
+        "creationTime": "2024-08-19T11:57:17.863105Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2024-08-18T19:43:08Z",
+        "exploitDetails": {
+          "sources": [
+            "Snyk"
+          ],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Proof of Concept",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Proof of Concept",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "pip",
+        "publicationTime": "2024-08-19T11:57:18.083290Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2024-11-14T08:19:59.486267Z",
+        "socialTrendAlert": false,
+        "packagePopularityRank": 85,
+        "from": [
+          "entregable4@0.0.0",
+          "flask-cors@4.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": true,
+        "isRuntime": false,
+        "name": "flask-cors",
+        "version": "4.0.0",
+        "severityWithCritical": "high"
+      },
+      {
+        "id": "SNYK-PYTHON-FLASKCORS-9668954",
+        "title": "Improper Handling of Case Sensitivity",
+        "CVSSv3": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N/E:P",
+        "credit": [
+          "tomorrowisnew_"
+        ],
+        "semver": {
+          "vulnerable": [
+            "[,6.0.0)"
+          ]
+        },
+        "exploit": "Proof of Concept",
+        "fixedIn": [
+          "6.0.0"
+        ],
+        "patches": [],
+        "insights": {
+          "triageAdvice": null
+        },
+        "language": "python",
+        "severity": "high",
+        "cvssScore": 8.7,
+        "functions": [],
+        "malicious": false,
+        "isDisputed": false,
+        "moduleName": "flask-cors",
+        "references": [
+          {
+            "url": "https://github.com/corydolphin/flask-cors/commit/eb39516a3c96b90d0ae5f51293972395ec3ef358",
+            "title": "GitHub Commit"
+          },
+          {
+            "url": "https://github.com/corydolphin/flask-cors/pull/390",
+            "title": "GitHub PR"
+          },
+          {
+            "url": "https://github.com/corydolphin/flask-cors/releases/tag/6.0.0",
+            "title": "GitHub Release"
+          },
+          {
+            "url": "https://huntr.com/bounties/808c11af-faee-43a8-824b-b5ab4f62b9e6",
+            "title": "Vulnerability Report"
+          },
+          {
+            "url": "https://github.com/corydolphin/flask-cors/blob/5.0.1/flask_cors/extension.py%23L193",
+            "title": "Vulnerable Code"
+          }
+        ],
+        "cvssDetails": [
+          {
+            "assigner": "NVD",
+            "severity": "high",
+            "cvssV3Vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "cvssV3BaseScore": 7.5,
+            "modificationTime": "2025-08-01T13:13:16.580172Z"
+          }
+        ],
+        "cvssSources": [
+          {
+            "type": "primary",
+            "vector": "CVSS:4.0/AV:N/AC:L/AT:N/PR:N/UI:N/VC:H/VI:N/VA:N/SC:N/SI:N/SA:N/E:P",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 8.7,
+            "cvssVersion": "4.0",
+            "modificationTime": "2025-08-01T14:54:17.481049Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N/E:P",
+            "assigner": "Snyk",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-01T14:54:17.481049Z"
+          },
+          {
+            "type": "secondary",
+            "vector": "CVSS:3.1/AV:N/AC:L/PR:N/UI:N/S:U/C:H/I:N/A:N",
+            "assigner": "NVD",
+            "severity": "high",
+            "baseScore": 7.5,
+            "cvssVersion": "3.1",
+            "modificationTime": "2025-08-01T13:13:16.580172Z"
+          }
+        ],
+        "description": "## Overview\n[Flask-Cors](https://www.pypi.org/project/Flask-Cors) is an A Flask extension adding a decorator for CORS support\n\nAffected versions of this package are vulnerable to Improper Handling of Case Sensitivity in the `try_match()` function. An attacker can access restricted paths and potentially expose sensitive data by exploiting the case insensitivity in path matching.\n## Remediation\nUpgrade `Flask-Cors` to version 6.0.0 or higher.\n## References\n- [GitHub Commit](https://github.com/corydolphin/flask-cors/commit/eb39516a3c96b90d0ae5f51293972395ec3ef358)\n- [GitHub PR](https://github.com/corydolphin/flask-cors/pull/390)\n- [GitHub Release](https://github.com/corydolphin/flask-cors/releases/tag/6.0.0)\n- [Vulnerability Report](https://huntr.com/bounties/808c11af-faee-43a8-824b-b5ab4f62b9e6)\n- [Vulnerable Code](https://github.com/corydolphin/flask-cors/blob/5.0.1/flask_cors/extension.py#L193)\n",
+        "epssDetails": {
+          "percentile": "0.26446",
+          "probability": "0.00092",
+          "modelVersion": "v2025.03.14"
+        },
+        "identifiers": {
+          "CVE": [
+            "CVE-2024-6866"
+          ],
+          "CWE": [
+            "CWE-178"
+          ],
+          "GHSA": [
+            "GHSA-43qf-4rqw-9q2g"
+          ]
+        },
+        "packageName": "flask-cors",
+        "proprietary": false,
+        "creationTime": "2025-04-07T19:06:38.649842Z",
+        "functions_new": [],
+        "alternativeIds": [],
+        "disclosureTime": "2025-03-20T12:32:45Z",
+        "exploitDetails": {
+          "sources": [
+            "Snyk"
+          ],
+          "maturityLevels": [
+            {
+              "type": "secondary",
+              "level": "Proof of Concept",
+              "format": "CVSSv3"
+            },
+            {
+              "type": "primary",
+              "level": "Proof of Concept",
+              "format": "CVSSv4"
+            }
+          ]
+        },
+        "packageManager": "pip",
+        "publicationTime": "2025-04-07T19:06:38.884389Z",
+        "severityBasedOn": "CVSS",
+        "modificationTime": "2025-08-01T14:54:17.481049Z",
+        "socialTrendAlert": false,
+        "packagePopularityRank": 85,
+        "from": [
+          "entregable4@0.0.0",
+          "flask-cors@4.0.0"
+        ],
+        "upgradePath": [],
+        "isUpgradable": false,
+        "isPatchable": false,
+        "isPinnable": true,
+        "isRuntime": false,
+        "name": "flask-cors",
+        "version": "4.0.0",
+        "severityWithCritical": "high"
+      }
+    ],
+    "upgrade": {},
+    "patch": {},
+    "ignore": {},
+    "pin": {
+      "flask-cors@4.0.0": {
+        "upgradeTo": "flask-cors@6.0.0",
+        "vulns": [
+          "SNYK-PYTHON-FLASKCORS-7707876",
+          "SNYK-PYTHON-FLASKCORS-9668954"
+        ],
+        "isTransitive": false
+      }
+    }
+  },
+  "filesystemPolicy": false,
+  "filtered": {
+    "ignore": [],
+    "patch": []
+  },
+  "uniqueCount": 2,
+  "projectName": "entregable4",
+  "displayTargetFile": "requirements.txt",
+  "hasUnknownVersions": false,
+  "path": "C:\\Users\\juanm\\Desktop\\devOps\\entregable4"
+}

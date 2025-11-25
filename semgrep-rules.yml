@@ -1,0 +1,12 @@
+rules:
+  - id: python-open-file
+    pattern: open(...)
+    message: "Evita abrir archivos directamente sin validar rutas de entrada (riesgo de path traversal)."
+    languages: [python]
+    severity: WARNING
+
+  - id: python-env-getenv
+    pattern: os.getenv(...)
+    message: "El uso de variables de entorno debe validarse para evitar comportamiento inesperado."
+    languages: [python]
+    severity: INFO

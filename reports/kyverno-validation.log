@@ -1,0 +1,16 @@
+Error from server: error when creating "kyverno-policies/test-pod-latest.yaml": admission webhook "validate.kyverno.svc-fail" denied the request: 
+
+resource Pod/default/test-pod-latest was blocked due to the following policies 
+
+disallow-latest-tag:
+  validate-image-tag: 'validation error: No se permite el uso de imágenes con la etiqueta
+    ''latest''. rule validate-image-tag failed at path /spec/containers/0/image/'
+disallow-root-user:
+  prevent-root: 'validation error: No se permite ejecutar contenedores como root.
+    rule prevent-root failed at path /spec/containers/0/securityContext/'
+require-app-label:
+  check-labels: 'validation error: Cada pod debe tener una etiqueta ''app''. rule
+    check-labels failed at path /metadata/labels/'
+require-cpu-mem-limits:
+  check-resources: 'validation error: Todos los contenedores deben definir limits
+    de CPU y memoria. rule check-resources failed at path /spec/containers/0/resources/limits/'

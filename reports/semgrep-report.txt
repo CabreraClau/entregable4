@@ -1,0 +1,31 @@
+                   
+                   
+┌─────────────────┐
+│ 6 Code Findings │
+└─────────────────┘
+                         
+  [36m[22m[24m  app.py[0m
+    ❯❱ python-open-file
+          Evita abrir archivos directamente sin validar rutas de entrada (riesgo de path traversal).
+                                                                                                    
+           20┆ open(NOTES_FILE, "w").close()
+   
+     ❱ python-env-getenv
+          El uso de variables de entorno debe validarse para evitar comportamiento inesperado.
+                                                                                              
+           66┆ env = os.getenv("APP_ENV", "desconocido")
+   
+    ❯❱ python-open-file
+          Evita abrir archivos directamente sin validar rutas de entrada (riesgo de path traversal).
+                                                                                                    
+           90┆ with open(NOTES_FILE, "r") as f:
+            ⋮┆----------------------------------------
+          102┆ with open(NOTES_FILE, "a") as f:
+   
+     ❱ python-env-getenv
+          El uso de variables de entorno debe validarse para evitar comportamiento inesperado.
+                                                                                              
+          110┆ env = os.getenv("APP_ENV", "desconocido")
+            ⋮┆----------------------------------------
+          120┆ PORT = int(os.getenv("APP_PORT", 5000))
+

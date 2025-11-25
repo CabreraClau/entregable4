@@ -1,0 +1,18 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: disallow-root-user
+spec:
+  validationFailureAction: enforce
+  rules:
+    - name: prevent-root
+      match:
+        resources:
+          kinds: ["Pod"]
+      validate:
+        message: "No se permite ejecutar contenedores como root."
+        pattern:
+          spec:
+            containers:
+              - securityContext:
+                  runAsNonRoot: true
