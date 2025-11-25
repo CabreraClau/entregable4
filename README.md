@@ -30,6 +30,43 @@ REPOSITORY     TAG      SIZE
 app-notas      1.0      126MB
 
 ```
+
+
+## Cambiar de entorno dev-> prod
+
+
+Este proyecto permite cambiar fácilmente entre entornos usando Helm
+y los archivos `values.yaml` (dev) y `values-prod.yaml` (prod).
+
+---
+
+## 1️⃣ Verificar que los charts existen
+
+Asegurate de estar dentro del proyecto:
+
+```bash
+cd entregable4/entregable4-chart
+```
+
+```
+helm upgrade notas-entregable4-chart . -f values-prod.yaml
+
+```
+Actualizar el reelease
+```
+helm install notas-entregable4-chart . -f values-prod.yaml
+
+```
+para confirmar:
+helm list
+kubectl get pods
+kubectl get svc notas-entregable4-chart -o yaml
+
+para acceder a la app:
+kubectl port-forward svc/notas-entregable4-chart 5000:5000
+
+
+
 Análisis de Vulnerabilidades con Trivy
 ```
 trivy image app-notas:1.0
@@ -282,6 +319,26 @@ Importar dashboard en Grafana
 
 Ruta del archivo exportado:
 /grafana/dashboard.json
+
+Flujo completo: App → Service → ServiceMonitor → Prometheus → Grafana
+```
+Tu app Flask (/metrics)
+       ↓
+Service de Kubernetes (puerto http: 5000)
+       ↓
+ServiceMonitor (descubre el servicio con label app=entregable4-chart)
+       ↓
+Prometheus Operator (kube-prometheus-stack)
+       ↓
+Prometheus (scrapea cada 10 segundos)
+       ↓
+Grafana (consulta Prometheus con tus queries)
+       ↓
+Paneles
+
+```
+
+
 
 5. Seguridad Integrada (DevSecOps)
 5.1 Análisis estático de código con Semgrep
